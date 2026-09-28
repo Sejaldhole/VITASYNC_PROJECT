@@ -1,0 +1,16 @@
+# IntelliJ
+.idea/
+*.iml
+
+# Frontend
+doctmeet-frontend/node_modules/
+doctmeet-frontend/dist/
+
+# Backend
+doctorbooking/doctorbooking/target/
+
+# Logs
+*.log
+
+# Environment
+.env
