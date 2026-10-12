@@ -401,8 +401,15 @@ function DoctorRequestPage() {
       await api.post("/doctor-request", form);
       setSuccess("Your request has been submitted! We'll review and get back to you within 24–48 hours.");
       setTimeout(() => navigate("/"), 3000);
-    } catch {
-      setError("Submission failed. Please check your details and try again.");
+    } catch (err) {
+      const serverMsg = err.response?.data?.message || err.response?.data;
+      if (typeof serverMsg === "string" && serverMsg.trim()) {
+        setError(serverMsg);
+      } else if (err.message && err.message.toLowerCase().includes("network")) {
+        setError("Network error: Unable to reach the server. Please check your connection or backend configuration.");
+      } else {
+        setError("Submission failed. Please check your details and try again.");
+      }
     } finally {
       setLoading(false);
     }
